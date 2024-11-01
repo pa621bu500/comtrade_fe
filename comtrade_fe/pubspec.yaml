@@ -1,0 +1,28 @@
+name: comtrade_fe
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  archive: ^3.6.1
+  charts_flutter_new: ^0.12.0
+  dio: ^5.7.0
+  excel: ^4.0.6
+  file_picker: ^8.0.5
+  fl_chart: ^0.69.0
+  flutter:
+    sdk: flutter
+  http: ^1.2.2
+  path_provider: ^2.1.4
+  universal_platform: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
