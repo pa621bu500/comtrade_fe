@@ -1,8 +1,6 @@
 import 'package:comtrade_fe/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_core/core.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'util/ThemeProvider.dart';
 

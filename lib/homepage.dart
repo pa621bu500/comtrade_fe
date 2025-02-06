@@ -319,8 +319,9 @@ class _MainScreenState extends State<MainScreen> {
 
       channels.add({
         'channel_name': channel['channel_name'] ?? 'Channel $i',
-        'phase': channel['phase'] ?? '',
-        'measurement_unit': channel['measurement_unit'] ?? '',
+        'phase': channel['phase'] ?? channel['phase_id'] ?? '',
+        'measurement_unit':
+            channel['measurement_unit'] ?? channel['unit'] ?? '',
         "data": List.generate(
             channel['values'].length,
             (index) => {
@@ -338,10 +339,13 @@ class _MainScreenState extends State<MainScreen> {
     // Example: Access the first channel's name and values
 
     //convert to x,y format for both current and voltage
+
     setState(() {
       _voltageWaveformLineSelected = channels.where((channel) {
-        return channel['measurement_unit'] == "Voltage" &&
-            channel['phase'] != 'NG'; // Filter out non-voltage channels
+        return (channel['measurement_unit'] == "Voltage" ||
+                channel['measurement_unit'] == "V") &&
+            (channel['phase'] != 'NG' &&
+                channel['phase'] != 'P3'); // Filter out non-voltage channels
       }).map((channel) {
         // Check if 'values' exists and is not null or empty
         if (channel['data'] != null && channel['data'].isNotEmpty) {
@@ -369,8 +373,10 @@ class _MainScreenState extends State<MainScreen> {
         }
       }).toList();
       _currentWaveformLineSelected = channels.where((channel) {
-        return channel['measurement_unit'] == "Current" &&
-            channel['phase'] != 'NG'; // Filter out non-voltage channels
+        return (channel['measurement_unit'] == "Current" ||
+                channel['measurement_unit'] == "A") &&
+            (channel['phase'] != 'NG' &&
+                channel['phase'] != 'P3'); // Filter out non-voltage channels
       }).map((channel) {
         // Check if 'values' exists and is not null or empty
         if (channel['data'] != null && channel['data'].isNotEmpty) {
@@ -398,6 +404,72 @@ class _MainScreenState extends State<MainScreen> {
         }
       }).toList();
     });
+
+    // if (result['analogChannels'] != null &&
+    //     result['analogChannels'].isNotEmpty) {
+    //   setState(() {
+    //     _voltageWaveformLineSelected = channels.where((channel) {
+    //       return channel['measurement_unit'] == "V" &&
+    //           channel['phase'] != 'P3'; // Filter out non-voltage channels
+    //     }).map((channel) {
+    //       // Check if 'values' exists and is not null or empty
+    //       if (channel['data'] != null && channel['data'].isNotEmpty) {
+    //         return {
+    //           "channel_name": channel['channel_name'], // Channel name
+    //           "phase": channel['phase'], // Channel phase
+    //           "measurement_unit":
+    //               channel['measurement_unit'], // Measurement unit (Voltage)
+    //           "data": List.generate(
+    //             channel['data']
+    //                 .length, // Use the length of each channel's values
+    //             (index) => {
+    //               "x": channel['data'][index]["x"], // Keep original x value
+    //               "y": channel['data'][index]["y"], // Fix: Access only y value
+    //             },
+    //           ),
+    //         };
+    //       } else {
+    //         // Handle the case where 'values' is null or empty
+    //         return {
+    //           "channel_name": channel['channel_name'],
+    //           "phase": channel['phase'],
+    //           "measurement_unit": channel['measurement_unit'],
+    //           "data": [], // Return an empty list for this channel
+    //         };
+    //       }
+    //     }).toList();
+    //     _currentWaveformLineSelected = channels.where((channel) {
+    //       return channel['measurement_unit'] == "A" &&
+    //           channel['phase'] != 'P3'; // Filter out non-voltage channels
+    //     }).map((channel) {
+    //       // Check if 'values' exists and is not null or empty
+    //       if (channel['data'] != null && channel['data'].isNotEmpty) {
+    //         return {
+    //           "channel_name": channel['channel_name'], // Channel name
+    //           "phase": channel['phase'], // Channel phase
+    //           "measurement_unit":
+    //               channel['measurement_unit'], // Measurement unit (Voltage)
+    //           "data": List.generate(
+    //             channel['data']
+    //                 .length, // Use the length of each channel's values
+    //             (index) => {
+    //               "x": channel['data'][index]["x"], // Keep original x value
+    //               "y": channel['data'][index]["y"], // Fix: Access only y value
+    //             },
+    //           ),
+    //         };
+    //       } else {
+    //         // Handle the case where 'values' is null or empty
+    //         return {
+    //           "channel_name": channel['channel_name'],
+    //           "phase": channel['phase'],
+    //           "measurement_unit": channel['measurement_unit'],
+    //           "data": [], // Return an empty list for this channel
+    //         };
+    //       }
+    //     }).toList();
+    //   });
+    // }
   }
 
   Widget getWaveformChart({
