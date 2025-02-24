@@ -109,7 +109,7 @@ class _WgtLineChartState extends State<WgtLineChart> {
     if (_minY == double.infinity) _minY = 0;
     if (_maxY == double.infinity) _maxY = 1;
 
-    List<ChartSeries> seriesList = [];
+    List<CartesianSeries> seriesList = [];
 
     for (int i = 0; i < widget.channelList.length; i++) {
       seriesList.add(LineSeries<ChartData, double>(
@@ -127,7 +127,8 @@ class _WgtLineChartState extends State<WgtLineChart> {
         color: widget.seriesColors != null && i < widget.seriesColors!.length
             ? widget.seriesColors![i]
             : Colors.blue,
-        name: widget.channelList[i]["phase"], // Set phase as the legend name
+        name: widget.channelList[i]
+            ["channel_name"], // Set phase as the legend name
       ));
     }
 

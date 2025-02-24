@@ -2,7 +2,7 @@ import 'package:comtrade_fe/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'util/ThemeProvider.dart';
+import 'util/Theme_provider.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(

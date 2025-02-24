@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:comtrade_fe/util/Generic.dart';
-import 'package:comtrade_fe/util/ThemeProvider.dart';
+import 'package:comtrade_fe/util/generic.dart';
+import 'package:comtrade_fe/util/theme_provider.dart';
 import 'package:comtrade_fe/wgt_line_graph.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +132,7 @@ class _MainScreenState extends State<MainScreen> {
     final Map<String, dynamic> responseJson = jsonDecode(responseData.body);
     final Map<String, dynamic> result = responseJson['data'];
     final Map<String, dynamic> pqdData = result['pqd_data'];
-    final Map<String, dynamic> logicalParserData = pqdData['logical_parser'];
+    final Map<String, dynamic> logicalParserData = pqdData['logical_parser'][0];
 
     setState(() {
       _result = logicalParserData;
@@ -163,7 +163,7 @@ class _MainScreenState extends State<MainScreen> {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'http://localhost:8111/process_comtrade_file'), // Replace with your API URL
+            'https://dev-pq-decoder.evs.com.sg/process_comtrade_file'), // Replace with your API URL
       );
 
       if (cfgFile!.bytes != null && datFile!.bytes != null) {
@@ -246,7 +246,7 @@ class _MainScreenState extends State<MainScreen> {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'http://localhost:8111/process_pqd_file'), // Replace with your API URL
+            'https://dev-pq-decoder.evs.com.sg/process_pqd_file'), // Replace with your API URL
       );
 
       if (pqdFile!.bytes != null) {
